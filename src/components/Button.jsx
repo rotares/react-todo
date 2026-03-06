@@ -1,7 +1,10 @@
-function Button() {
+function Button(props) {
+  const { className = "", type = "button", children } = props
+
+  /* children - ребенок, то что мы передаем внутри тега <></> */
   return (
-    <button className="button" type="submit">
-      Add
+    <button className={`button ${className}`} type={type}>
+      {children}
     </button>
   )
 }

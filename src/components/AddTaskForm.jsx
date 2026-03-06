@@ -5,8 +5,8 @@ import Field from "./Field"
 function AddTaskForm() {
   return (
     <form className="todo__form">
-      <Field />
-      <Button />
+      <Field className="todo__field" id="new-task" label="New task title" />
+      <Button type="submit">Add</Button>
     </form>
   )
 }
