@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import AddTaskForm from "./AddTaskForm"
 import SearchTaskForm from "./SearchTaskForm"
 import TodoInfo from "./TodoInfo"
@@ -6,10 +6,12 @@ import TodoList from "./TodoList"
 
 function Todo() {
   //хук для обновления состояния, начальное состояние
-  const [tasks, setTasks] = useState([
-    { id: "task-1", title: "task1", isDone: true },
-    { id: "task-2", title: "task2", isDone: false },
-  ])
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = JSON.parse(localStorage.getItem("tasks"))
+
+    if (savedTasks) return savedTasks
+    return []
+  })
 
   //состояние для названия задачи
   const [newTaskTitle, setNewTaskTitle] = useState("")
@@ -25,7 +27,6 @@ function Todo() {
 
   //изменяем состояние задачи
   const toggleTaskComplete = (id, isDone) => {
-    console.log(isDone)
     setTasks(
       tasks.map((task) => {
         if (task.id === id) {
@@ -54,6 +55,25 @@ function Todo() {
       setNewTaskTitle("")
     }
   }
+
+  //хук для сайд эффектов, отслеживает изменения зависимостей и выполняет инструкции
+  //аналог watch во vue
+
+  // useEffect(() => {
+  //   console.log("парсим данные")
+  //   const savedTasks = JSON.parse(localStorage.getItem("tasks"))
+
+  //   console.log(savedTasks, "savedTasks")
+
+  //   if (savedTasks) {
+  //     setTasks(savedTasks)
+  //   }
+  // }, [])
+
+  useEffect(() => {
+    console.log("сохраняем")
+    localStorage.setItem("tasks", JSON.stringify(tasks))
+  }, [tasks])
 
   return (
     <div className="todo">
