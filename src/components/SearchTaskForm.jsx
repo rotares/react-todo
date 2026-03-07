@@ -1,6 +1,6 @@
 import Field from "./Field"
 function SearchTaskForm(props) {
-  const { onSearchInput } = props
+  const { searchQuery, setSearchQuery } = props
 
   //передаем колббек который будет возвращать уже значение из инпута
   return (
@@ -10,7 +10,8 @@ function SearchTaskForm(props) {
         id="search-task"
         label="Search task"
         type="search"
-        onInput={(event) => onSearchInput(event.target.value)}
+        onInput={(event) => setSearchQuery(event.target.value)}
+        value={searchQuery}
       />
     </form>
   )
