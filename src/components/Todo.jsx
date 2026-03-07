@@ -4,11 +4,14 @@ import TodoInfo from "./TodoInfo"
 import TodoList from "./TodoList"
 
 function Todo() {
-  //временный массив с тасками
-  const tasks = [
+  //хук для обновления состояния, начальное состояние
+  const [tasks, setTasks] = useState([
     { id: "task-1", title: "task1", isDone: true },
     { id: "task-2", title: "task2", isDone: false },
-  ]
+  ])
+
+  //состояние для названия задачи
+  const [newTaskTitle, setNewTaskTitle] = useState("")
 
   const deleteAllTasks = () => {
     console.log("удаляем все")
