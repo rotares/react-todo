@@ -1,6 +1,15 @@
 //компонент одной задачи
 function TodoItem(props) {
-  const { className = "", id, title, isDone = false } = props
+  const {
+    className = "",
+    id,
+    title,
+    isDone = false,
+    onDeleteTaskButtonClick,
+    onTaskCompleteChangeButton,
+  } = props
+
+  console.log(isDone)
 
   return (
     <li className={`todo-item ${className}`}>
@@ -9,6 +18,9 @@ function TodoItem(props) {
         id={id}
         type="checkbox"
         checked={isDone}
+        onChange={({ target }) => {
+          onTaskCompleteChangeButton(id, target.checked)
+        }}
         readOnly
       />
       <label className="todo-item__label" htmlFor={id}>
@@ -18,6 +30,7 @@ function TodoItem(props) {
         className="todo-item__delete-button"
         aria-label="Delete"
         title="Delete"
+        onClick={() => onDeleteTaskButtonClick(id)}
       >
         <svg
           width="20"

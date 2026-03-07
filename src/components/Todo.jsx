@@ -10,16 +10,44 @@ function Todo() {
     { id: "task-2", title: "task2", isDone: false },
   ]
 
+  const deleteAllTasks = () => {
+    console.log("удаляем все")
+  }
+
+  const deleteTask = (id) => {
+    console.log("удаляем", id)
+  }
+
+  const toggleTaskComplete = (id, isDone) => {
+    console.log(
+      `задача ${id}, имеет состояние ${isDone ? "выполнена" : "активна"}`,
+    )
+  }
+
+  //поиск задачи
+  const filterTasks = (query) => {
+    console.log("ПОИСК", query)
+  }
+
+  const addTask = () => {
+    console.log("задача добавлена")
+  }
+
   return (
     <div className="todo">
       <h1 className="todo__title">To Do List</h1>
-      <AddTaskForm />
-      <SearchTaskForm />
+      <AddTaskForm addTask={addTask} />
+      <SearchTaskForm onSearchInput={filterTasks} />
       <TodoInfo
         total={tasks.length}
         done={tasks.filter(({ isDone }) => isDone).length}
+        onDeleteAllTasksButtonClick={deleteAllTasks}
       />
-      <TodoList tasks={tasks} />
+      <TodoList
+        tasks={tasks}
+        onDeleteTaskButtonClick={deleteTask}
+        onTaskCompleteChangeButton={toggleTaskComplete}
+      />
     </div>
   )
 }
