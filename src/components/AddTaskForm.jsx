@@ -3,7 +3,7 @@ import Field from "./Field"
 
 //форма добавления задачи
 function AddTaskForm(props) {
-  const { addTask } = props
+  const { addTask, newTaskTitle, setNewTaskTitle } = props
 
   return (
     <form
@@ -13,7 +13,13 @@ function AddTaskForm(props) {
       }}
       className="todo__form"
     >
-      <Field className="todo__field" id="new-task" label="New task title" />
+      <Field
+        value={newTaskTitle}
+        onInput={(e) => setNewTaskTitle(e.target.value)}
+        className="todo__field"
+        id="new-task"
+        label="New task title"
+      />
       <Button type="submit">Add</Button>
     </form>
   )
