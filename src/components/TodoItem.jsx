@@ -9,8 +9,6 @@ function TodoItem(props) {
     onTaskCompleteChangeButton,
   } = props
 
-  console.log(isDone)
-
   return (
     <li className={`todo-item ${className}`}>
       <input

@@ -1,3 +1,4 @@
+import { useState } from "react"
 import AddTaskForm from "./AddTaskForm"
 import SearchTaskForm from "./SearchTaskForm"
 import TodoInfo from "./TodoInfo"
@@ -14,16 +15,24 @@ function Todo() {
   const [newTaskTitle, setNewTaskTitle] = useState("")
 
   const deleteAllTasks = () => {
-    console.log("удаляем все")
+    setTasks([])
   }
 
   const deleteTask = (id) => {
-    console.log("удаляем", id)
+    //фильтруем массив
+    setTasks(tasks.filter((task) => task.id !== id))
   }
 
+  //изменяем состояние задачи
   const toggleTaskComplete = (id, isDone) => {
-    console.log(
-      `задача ${id}, имеет состояние ${isDone ? "выполнена" : "активна"}`,
+    console.log(isDone)
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, isDone }
+        }
+        return task
+      }),
     )
   }
 
@@ -33,7 +42,17 @@ function Todo() {
   }
 
   const addTask = () => {
-    console.log("задача добавлена")
+    if (newTaskTitle.trim().length > 0) {
+      const newTask = {
+        id: crypto?.randomUUID() ?? Date.now().toString(),
+        title: newTaskTitle,
+        isDone: false,
+      }
+
+      //вызываем сеттеры useState
+      setTasks([...tasks, newTask])
+      setNewTaskTitle("")
+    }
   }
 
   return (
