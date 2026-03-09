@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import AddTaskForm from "./AddTaskForm"
 import SearchTaskForm from "./SearchTaskForm"
 import TodoInfo from "./TodoInfo"
 import TodoList from "./TodoList"
+import Button from "./Button"
 
 function Todo() {
+  console.log("todo")
   //хук для обновления состояния, начальное состояние
   const [tasks, setTasks] = useState(() => {
     const savedTasks = JSON.parse(localStorage.getItem("tasks"))
@@ -15,8 +17,13 @@ function Todo() {
 
   //состояние для названия задачи
   const [newTaskTitle, setNewTaskTitle] = useState("")
-
   const [searchQuery, setSearchQuery] = useState("")
+
+  const newTaskTitleRef = useRef(null)
+
+  //обработка для первого невыполненного task
+  const firstIncompleteTaskRef = useRef(null)
+  const firstIncompleteTaskId = tasks.find(({ isDone }) => !isDone)?.id
 
   const deleteAllTasks = () => {
     setTasks([])
@@ -46,10 +53,12 @@ function Todo() {
         title: newTaskTitle,
         isDone: false,
       }
-
       //вызываем сеттеры useState
       setTasks([...tasks, newTask])
       setNewTaskTitle("")
+      setSearchQuery("")
+
+      newTaskTitleRef.current.focus()
     }
   }
 
@@ -72,6 +81,11 @@ function Todo() {
     localStorage.setItem("tasks", JSON.stringify(tasks))
   }, [tasks])
 
+  //делаем фокус на инпуте
+  useEffect(() => {
+    newTaskTitleRef.current.focus()
+  }, [])
+
   //получаем строку без пробелов
   const clearSearchQuery = searchQuery.toLowerCase().trim().length > 0
 
@@ -87,6 +101,7 @@ function Todo() {
       <h1 className="todo__title">To Do List</h1>
       <AddTaskForm
         addTask={addTask}
+        newTaskTitleRef={newTaskTitleRef}
         newTaskTitle={newTaskTitle}
         setNewTaskTitle={setNewTaskTitle}
       />
@@ -99,9 +114,21 @@ function Todo() {
         done={tasks.filter(({ isDone }) => isDone).length}
         onDeleteAllTasksButtonClick={deleteAllTasks}
       />
+      <Button
+        onClick={() => {
+          firstIncompleteTaskRef.current?.scrollIntoView({
+            behaviour: "smooth",
+          })
+          console.log(firstIncompleteTaskRef, firstIncompleteTaskId)
+        }}
+      >
+        Show first incomplete task
+      </Button>
       <TodoList
         tasks={tasks}
         filteredTasks={filteredTasks}
+        firstIncompleteTaskRef={firstIncompleteTaskRef}
+        firstIncompleteTaskId={firstIncompleteTaskId}
         onDeleteTaskButtonClick={deleteTask}
         onTaskCompleteChangeButton={toggleTaskComplete}
       />

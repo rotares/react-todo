@@ -1,9 +1,9 @@
 function Button(props) {
-  const { className = "", type = "button", children } = props
+  const { className = "", type = "button", children, onClick } = props
 
   /* children - ребенок, то что мы передаем внутри тега <></> */
   return (
-    <button className={`button ${className}`} type={type}>
+    <button className={`button ${className}`} type={type} onClick={onClick}>
       {children}
     </button>
   )

@@ -1,11 +1,14 @@
 import TodoItem from "./TodoItem"
 
 function TodoList(props) {
+  console.log("todo-list")
   const {
     tasks = [],
     filteredTasks,
     onDeleteTaskButtonClick,
     onTaskCompleteChangeButton,
+    firstIncompleteTaskRef,
+    firstIncompleteTaskId,
   } = props
 
   const hasTasks = tasks.length > 0
@@ -31,6 +34,9 @@ function TodoList(props) {
           id={task.id}
           isDone={task.isDone}
           title={task.title}
+          ref={
+            task.id === firstIncompleteTaskId ? firstIncompleteTaskRef : null
+          }
           onDeleteTaskButtonClick={onDeleteTaskButtonClick}
           onTaskCompleteChangeButton={onTaskCompleteChangeButton}
         />

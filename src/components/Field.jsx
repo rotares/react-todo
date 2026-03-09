@@ -1,6 +1,14 @@
 function Field(props) {
   //принимаем пропсами
-  const { className = "", id, label, type = "text", onInput, value } = props
+  const {
+    className = "",
+    id,
+    label,
+    type = "text",
+    onInput,
+    value,
+    ref,
+  } = props
 
   return (
     <div className={`field ${className}`}>
@@ -15,6 +23,7 @@ function Field(props) {
         type={type}
         onInput={onInput}
         value={value}
+        ref={ref}
       />
     </div>
   )
