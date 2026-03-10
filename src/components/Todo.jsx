@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import AddTaskForm from "./AddTaskForm"
 import SearchTaskForm from "./SearchTaskForm"
 import TodoInfo from "./TodoInfo"
@@ -25,28 +25,35 @@ function Todo() {
   const firstIncompleteTaskRef = useRef(null)
   const firstIncompleteTaskId = tasks.find(({ isDone }) => !isDone)?.id
 
-  const deleteAllTasks = () => {
+  //сохраняем ссылку на функцию при ререндерах
+  const deleteAllTasks = useCallback(() => {
     setTasks([])
-  }
+  }, [])
 
-  const deleteTask = (id) => {
-    //фильтруем массив
-    setTasks(tasks.filter((task) => task.id !== id))
-  }
+  const deleteTask = useCallback(
+    (id) => {
+      //фильтруем массив
+      setTasks(tasks.filter((task) => task.id !== id))
+    },
+    [tasks],
+  )
 
   //изменяем состояние задачи
-  const toggleTaskComplete = (id, isDone) => {
-    setTasks(
-      tasks.map((task) => {
-        if (task.id === id) {
-          return { ...task, isDone }
-        }
-        return task
-      }),
-    )
-  }
+  const toggleTaskComplete = useCallback(
+    (id, isDone) => {
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === id) {
+            return { ...task, isDone }
+          }
+          return task
+        }),
+      )
+    },
+    [tasks],
+  )
 
-  const addTask = () => {
+  const addTask = useCallback(() => {
     if (newTaskTitle.trim().length > 0) {
       const newTask = {
         id: crypto?.randomUUID() ?? Date.now().toString(),
@@ -54,27 +61,13 @@ function Todo() {
         isDone: false,
       }
       //вызываем сеттеры useState
-      setTasks([...tasks, newTask])
+      setTasks((prevTasks) => [...prevTasks, newTask])
       setNewTaskTitle("")
       setSearchQuery("")
 
       newTaskTitleRef.current.focus()
     }
-  }
-
-  //хук для сайд эффектов, отслеживает изменения зависимостей и выполняет инструкции
-  //аналог watch во vue
-
-  // useEffect(() => {
-  //   console.log("парсим данные")
-  //   const savedTasks = JSON.parse(localStorage.getItem("tasks"))
-
-  //   console.log(savedTasks, "savedTasks")
-
-  //   if (savedTasks) {
-  //     setTasks(savedTasks)
-  //   }
-  // }, [])
+  }, [newTaskTitle])
 
   useEffect(() => {
     console.log("сохраняем")
@@ -86,15 +79,21 @@ function Todo() {
     newTaskTitleRef.current.focus()
   }, [])
 
-  //получаем строку без пробелов
-  const clearSearchQuery = searchQuery.toLowerCase().trim().length > 0
-
   //фильтрованный массив
-  const filteredTasks = clearSearchQuery
-    ? tasks.filter(({ title }) =>
-        title.toLowerCase().includes(searchQuery.toLowerCase()),
-      )
-    : null
+  const filteredTasks = useMemo(() => {
+    //получаем строку без пробелов
+    const clearSearchQuery = searchQuery.toLowerCase().trim().length > 0
+
+    return clearSearchQuery
+      ? tasks.filter(({ title }) =>
+          title.toLowerCase().includes(searchQuery.toLowerCase()),
+        )
+      : null
+  }, [searchQuery, tasks])
+
+  const doneTasks = useMemo(() => {
+    return tasks.filter(({ isDone }) => isDone).length
+  }, [tasks])
 
   return (
     <div className="todo">
@@ -111,7 +110,7 @@ function Todo() {
       />
       <TodoInfo
         total={tasks.length}
-        done={tasks.filter(({ isDone }) => isDone).length}
+        done={doneTasks}
         onDeleteAllTasksButtonClick={deleteAllTasks}
       />
       <Button

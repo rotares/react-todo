@@ -1,10 +1,10 @@
 import Button from "./Button"
 import Field from "./Field"
-
+import { memo } from "react"
 //форма добавления задачи
 function AddTaskForm(props) {
   const { addTask, newTaskTitle, setNewTaskTitle, newTaskTitleRef } = props
-
+  console.log("addtask")
   return (
     <form
       onSubmit={(e) => {
@@ -26,4 +26,4 @@ function AddTaskForm(props) {
   )
 }
 
-export default AddTaskForm
+export default memo(AddTaskForm)

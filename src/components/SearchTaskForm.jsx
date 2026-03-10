@@ -1,7 +1,9 @@
+import { memo } from "react"
 import Field from "./Field"
+
 function SearchTaskForm(props) {
   const { searchQuery, setSearchQuery } = props
-
+  console.log(123)
   //передаем колббек который будет возвращать уже значение из инпута
   return (
     <form onSubmit={(e) => e.preventDefault()} className="todo__form">
@@ -17,4 +19,4 @@ function SearchTaskForm(props) {
   )
 }
 
-export default SearchTaskForm
+export default memo(SearchTaskForm)

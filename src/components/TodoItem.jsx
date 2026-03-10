@@ -1,5 +1,7 @@
+import { memo } from "react"
 //компонент одной задачи
 function TodoItem(props) {
+  console.log("item")
   const {
     className = "",
     id,
@@ -51,4 +53,4 @@ function TodoItem(props) {
   )
 }
 
-export default TodoItem
+export default memo(TodoItem)
