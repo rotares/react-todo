@@ -1,16 +1,10 @@
 import TodoItem from "./TodoItem"
-import { memo } from "react"
+import { memo, useContext } from "react"
+import { TasksContext } from "../context/TasksContext"
 
-function TodoList(props) {
+function TodoList() {
   console.log("todo-list")
-  const {
-    tasks = [],
-    filteredTasks,
-    onDeleteTaskButtonClick,
-    onTaskCompleteChangeButton,
-    firstIncompleteTaskRef,
-    firstIncompleteTaskId,
-  } = props
+  const { tasks, filteredTasks } = useContext(TasksContext)
 
   const hasTasks = tasks.length > 0
 
@@ -29,18 +23,7 @@ function TodoList(props) {
     <ul className="todo__list">
       {/*преобразуем каждую задачу в разметку */}
       {(filteredTasks ?? tasks).map((task) => (
-        <TodoItem
-          className="todo__item"
-          key={task.id}
-          id={task.id}
-          isDone={task.isDone}
-          title={task.title}
-          ref={
-            task.id === firstIncompleteTaskId ? firstIncompleteTaskRef : null
-          }
-          onDeleteTaskButtonClick={onDeleteTaskButtonClick}
-          onTaskCompleteChangeButton={onTaskCompleteChangeButton}
-        />
+        <TodoItem className="todo__item" key={task.id} {...task} />
       ))}
     </ul>
   )

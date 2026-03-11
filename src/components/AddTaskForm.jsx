@@ -1,9 +1,13 @@
 import Button from "./Button"
 import Field from "./Field"
-import { memo } from "react"
+import { memo, useContext } from "react"
+import { TasksContext } from "../context/TasksContext"
+
 //форма добавления задачи
-function AddTaskForm(props) {
-  const { addTask, newTaskTitle, setNewTaskTitle, newTaskTitleRef } = props
+function AddTaskForm() {
+  const { addTask, newTaskTitle, setNewTaskTitle, newTaskTitleRef } =
+    useContext(TasksContext)
+
   console.log("addtask")
   return (
     <form

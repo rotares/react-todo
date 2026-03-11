@@ -1,8 +1,10 @@
-import { memo } from "react"
+import { memo, useContext } from "react"
 import Field from "./Field"
+import { TasksContext } from "../context/TasksContext"
 
-function SearchTaskForm(props) {
-  const { searchQuery, setSearchQuery } = props
+function SearchTaskForm() {
+  const { searchQuery, setSearchQuery } = useContext(TasksContext)
+
   console.log(123)
   //передаем колббек который будет возвращать уже значение из инпута
   return (
