@@ -8,7 +8,9 @@ function AddTaskForm() {
   const { addTask, newTaskTitle, setNewTaskTitle, newTaskTitleRef } =
     useContext(TasksContext)
 
-  console.log("addtask")
+  const clearTitle = newTaskTitle.trim()
+  const isTitleEmpty = clearTitle.length === 0
+
   return (
     <form
       onSubmit={(e) => {
@@ -25,7 +27,9 @@ function AddTaskForm() {
         id="new-task"
         label="New task title"
       />
-      <Button type="submit">Add</Button>
+      <Button isDisabled={isTitleEmpty} type="submit">
+        Add
+      </Button>
     </form>
   )
 }
