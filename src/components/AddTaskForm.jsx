@@ -11,14 +11,16 @@ function AddTaskForm() {
   const clearTitle = newTaskTitle.trim()
   const isTitleEmpty = clearTitle.length === 0
 
+  const onSubmit = (e) => {
+    e.preventDefault()
+
+    if (!isTitleEmpty) {
+      addTask(clearTitle)
+    }
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault()
-        addTask()
-      }}
-      className="todo__form"
-    >
+    <form onSubmit={onSubmit} className="todo__form">
       <Field
         value={newTaskTitle}
         onInput={(e) => setNewTaskTitle(e.target.value)}
