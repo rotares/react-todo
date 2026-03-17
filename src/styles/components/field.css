@@ -8,6 +8,14 @@
   }
 }
 
+.field__error {
+  color: red;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  font-size: 10px;
+}
+
 .field__label {
   position: absolute;
   top: 50%;
@@ -39,11 +47,17 @@
 
   &[type="search"] {
     &:placeholder-shown {
-      padding-right: calc(var(--fieldInputPaddingX) * 2 + var(--fieldSeachInputIconSize));
-      background-image: url('../../assets/icons/icon-search_black.svg');
+      padding-right: calc(
+        var(--fieldInputPaddingX) * 2 + var(--fieldSeachInputIconSize)
+      );
+      background-image: url("../../assets/icons/icon-search_black.svg");
       background-position: calc(100% - var(--fieldInputPaddingX)) 50%;
       background-size: var(--fieldSeachInputIconSize);
       background-repeat: no-repeat;
     }
+  }
+
+  &.is-invalid {
+    border-color: red;
   }
 }

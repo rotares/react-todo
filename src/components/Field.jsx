@@ -8,15 +8,16 @@ function Field(props) {
     onInput,
     value,
     ref,
+    error,
   } = props
 
   return (
-    <div className={`field ${className}`}>
+    <div className={`field ${className} `}>
       <label className="field__label" htmlFor={id}>
         {label}
       </label>
       <input
-        className="field__input"
+        className={`field__input ${error ? "is-invalid" : ""}`}
         id={id}
         placeholder=" "
         autoComplete="off"
@@ -25,6 +26,11 @@ function Field(props) {
         value={value}
         ref={ref}
       />
+      {error && (
+        <span title={error} className="field__error">
+          {error}
+        </span>
+      )}
     </div>
   )
 }

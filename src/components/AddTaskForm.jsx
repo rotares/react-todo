@@ -1,12 +1,15 @@
 import Button from "./Button"
 import Field from "./Field"
-import { memo, useContext } from "react"
+import { memo, useContext, useState } from "react"
 import { TasksContext } from "../context/TasksContext"
 
 //форма добавления задачи
 function AddTaskForm() {
   const { addTask, newTaskTitle, setNewTaskTitle, newTaskTitleRef } =
     useContext(TasksContext)
+
+  //состояние
+  const [error, setError] = useState(null)
 
   const clearTitle = newTaskTitle.trim()
   const isTitleEmpty = clearTitle.length === 0
@@ -19,15 +22,26 @@ function AddTaskForm() {
     }
   }
 
+  //новый метод onInput с валидацией только пробелов
+  const onInput = (e) => {
+    const { value } = e.target
+    const clearValue = value.trim()
+    const hasOnlySpaces = value.length > 0 && clearValue.length === 0
+
+    setNewTaskTitle(value)
+    setError(hasOnlySpaces ? "Error, only spaces" : null)
+  }
+
   return (
     <form onSubmit={onSubmit} className="todo__form">
       <Field
         value={newTaskTitle}
-        onInput={(e) => setNewTaskTitle(e.target.value)}
+        onInput={onInput}
         ref={newTaskTitleRef}
         className="todo__field"
         id="new-task"
         label="New task title"
+        error={error}
       />
       <Button isDisabled={isTitleEmpty} type="submit">
         Add
