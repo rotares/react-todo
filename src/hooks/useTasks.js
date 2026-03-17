@@ -1,12 +1,9 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
-import useTasksLocalStorage from './useTasksLocalStorage'
 
 //кастомный хук
 const useTasks = () => {
-  const { savedTasks, saveTasks } = useTasksLocalStorage()
-
   //хук для обновления состояния, начальное состояние
-  const [tasks, setTasks] = useState(savedTasks ?? [])
+  const [tasks, setTasks] = useState([])
 
   const [newTaskTitle, setNewTaskTitle] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
@@ -15,13 +12,29 @@ const useTasks = () => {
 
   //сохраняем ссылку на функцию при ререндерах
   const deleteAllTasks = useCallback(() => {
-    setTasks([])
-  }, [])
+    //используем promise.all, ждем пока все запросы выполнятся
+    Promise.all(
+      tasks.map(({ id }) =>
+        fetch(`http://localhost:3001/tasks/${id}`, {
+          method: 'DELETE',
+        })
+      )
+    )
+      .then(() => setTasks([]))
+      .catch(console.log)
+  }, [tasks])
 
   const deleteTask = useCallback(
     (id) => {
-      //фильтруем массив
-      setTasks(tasks.filter((task) => task.id !== id))
+      //делаем fetch для удаления, после обновляем локально
+      fetch(`http://localhost:3001/tasks/${id}`, {
+        method: 'DELETE',
+      })
+        .then(() => {
+          //фильтруем массив
+          setTasks(tasks.filter((task) => task.id !== id))
+        })
+        .catch(console.log)
     },
     [tasks]
   )
@@ -29,41 +42,63 @@ const useTasks = () => {
   //изменяем состояние задачи
   const toggleTaskComplete = useCallback(
     (id, isDone) => {
-      setTasks(
-        tasks.map((task) => {
-          if (task.id === id) {
-            return { ...task, isDone }
-          }
-          return task
-        })
+      fetch(`http://localhost:3001/tasks/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({ isDone }),
+      }).then(() =>
+        setTasks(
+          tasks.map((task) => {
+            if (task.id === id) {
+              return { ...task, isDone }
+            }
+            return task
+          }),
+          console.log
+        )
       )
     },
+
     [tasks]
   )
 
-  const addTask = useCallback((newTaskTitle) => {
+  const addTask = useCallback((title) => {
     const newTask = {
-      id: crypto?.randomUUID() ?? Date.now().toString(),
-      title: newTaskTitle,
+      title,
       isDone: false,
     }
 
-    //вызываем сеттеры useState
-    setTasks((prevTasks) => [...prevTasks, newTask])
-    setNewTaskTitle('')
-    setSearchQuery('')
+    //делаем fetch запроос, метод POST
+    fetch('http://localhost:3001/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(newTask),
+    })
+      .then((res) => res.json())
+      .then((addedTask) => {
+        setTasks((prevTasks) => [...prevTasks, addedTask])
+        setNewTaskTitle('')
+        setSearchQuery('')
 
-    newTaskTitleRef.current.focus()
+        newTaskTitleRef.current.focus()
+      })
+      .catch(console.log)
   }, [])
 
-  useEffect(() => {
-    console.log('сохраняем')
-    saveTasks(tasks)
-  }, [tasks])
-
   //делаем фокус на инпуте
+  //делаем fetch запрос
   useEffect(() => {
     newTaskTitleRef.current.focus()
+
+    //далем get запрос от сервака
+    fetch('http://localhost:3001/tasks')
+      .then((response) => response.json())
+      .then(setTasks)
+      .catch(console.log)
   }, [])
 
   //фильтрованный массив
