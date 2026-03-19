@@ -30,7 +30,7 @@ const tasksAPI = {
     return fetch(`${URL}/${id}`, {
       method: 'PATCH',
       headers,
-      body: JSON.stringify(isDone),
+      body: JSON.stringify({ isDone }),
     })
   },
 }
