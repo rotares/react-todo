@@ -1,5 +1,32 @@
 import { useEffect, useState } from "react"
 
+const mathPath = (path, route) => {
+  const pathParts = path.split("/")
+  const routeParts = route.split("/")
+
+  //если длина разная, то пути не совпадают
+  if (pathParts.length !== routeParts.length) {
+    return null
+  }
+
+  //параметры
+  const params = {}
+
+  routeParts.forEach((part, index) => {
+    //роуты уже одинаковой длины
+    //part - часть роута
+    if (part.startsWith(":")) {
+      //если начинается с : выявляем параметр
+      const partName = part.slice(1)
+      params[partName] = pathParts[index]
+    } else if (part !== pathParts[index]) {
+      return null
+    }
+  })
+  // если роут не динамический, но совпадает, вернется пустой обьект
+  return params
+}
+
 //получаем и устанавливаем роут
 const useRoute = () => {
   const [path, setPath] = useState(window.location.pathname)
@@ -23,20 +50,24 @@ const useRoute = () => {
 //роутер, пропами получаем роуты из app
 const Router = (props) => {
   const { routes } = props
-  const route = useRoute()
 
-  //если роут начинается с tasks то, вытаскиваем айди
-  if (route.startsWith("/tasks/")) {
-    const id = route.replace("/tasks/", "")
+  //получаем путь
+  const path = useRoute()
 
-    const TaskPage = routes["/tasks/:id"]
-
-    return <TaskPage params={{ id }} />
+  //перебираем роуты
+  for (const route in routes) {
+    const params = mathPath(path, route)
+    //если есть совпадение
+    if (params) {
+      //получаем компонент и возвращаем его
+      const Page = routes[route]
+      return <Page params={params} />
+    }
   }
 
   // в другом случае, просто ставим роут без чего либо
-  const Page = routes[route] ?? routes["*"]
-  return <Page />
+  const NotFound = routes["*"]
+  return <NotFound />
 }
 
 export default Router
