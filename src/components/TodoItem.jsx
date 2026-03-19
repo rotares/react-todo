@@ -1,5 +1,6 @@
 import { memo, useContext } from "react"
 import { TasksContext } from "../context/TasksContext"
+import RouterLink from "./RouterLink"
 
 //компонент одной задачи
 function TodoItem(props) {
@@ -27,9 +28,15 @@ function TodoItem(props) {
         }}
         readOnly
       />
-      <label className="todo-item__label" htmlFor={id}>
+
+      <label className="todo-item__label visually-hidden" htmlFor={id}>
         {title}
       </label>
+
+      <RouterLink to={`/tasks/${id}`} aria-label="page with details of task">
+        {title}
+      </RouterLink>
+
       <button
         className="todo-item__delete-button"
         aria-label="Delete"
