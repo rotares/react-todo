@@ -1,16 +1,17 @@
+import { TasksContext } from "@/context/TasksContext"
 import { memo, useContext } from "react"
-import Field from "./Field"
-import { TasksContext } from "../context/TasksContext"
+import Field from "../Field/Field"
 
-function SearchTaskForm() {
+function SearchTaskForm(props) {
+  const { styles } = props
   const { searchQuery, setSearchQuery } = useContext(TasksContext)
 
   console.log(123)
   //передаем колббек который будет возвращать уже значение из инпута
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="todo__form">
+    <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
       <Field
-        className="todo__field"
+        className={styles.field}
         id="search-task"
         label="Search task"
         type="search"

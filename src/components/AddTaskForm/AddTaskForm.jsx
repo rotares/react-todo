@@ -1,10 +1,12 @@
-import Button from "./Button"
-import Field from "./Field"
+import { TasksContext } from "@/context/TasksContext"
 import { memo, useContext, useState } from "react"
-import { TasksContext } from "../context/TasksContext"
+import Button from "../Button/Button"
+import Field from "../Field/Field"
 
 //форма добавления задачи
-function AddTaskForm() {
+function AddTaskForm(props) {
+  const { styles } = props
+
   const { addTask, newTaskTitle, setNewTaskTitle, newTaskTitleRef } =
     useContext(TasksContext)
 
@@ -33,12 +35,12 @@ function AddTaskForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="todo__form">
+    <form onSubmit={onSubmit} className={styles.form}>
       <Field
         value={newTaskTitle}
         onInput={onInput}
         ref={newTaskTitleRef}
-        className="todo__field"
+        className={styles.field}
         id="new-task"
         label="New task title"
         error={error}
