@@ -19,6 +19,8 @@ export default function TasksProvider({ children }) {
     toggleTaskComplete,
     setSearchQuery,
     setNewTaskTitle,
+    currentAppearingTaskId,
+    currentDeleteTaskId,
   } = useTasks()
 
   const { firstIncompleteTaskId, firstIncompleteTaskRef } =
@@ -40,6 +42,8 @@ export default function TasksProvider({ children }) {
         toggleTaskComplete,
         setSearchQuery,
         setNewTaskTitle,
+        currentDeleteTaskId,
+        currentAppearingTaskId,
       }}
     >
       {children}

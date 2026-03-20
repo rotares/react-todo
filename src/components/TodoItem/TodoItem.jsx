@@ -5,18 +5,22 @@ import styles from "./TodoItem.module.css"
 
 //компонент одной задачи
 function TodoItem(props) {
-  const { className = "", id, title, isDone = false } = props
+  const { id, title, isDone = false } = props
 
   const {
     firstIncompleteTaskId,
     firstIncompleteTaskRef,
     toggleTaskComplete,
     deleteTask,
+    currentDeleteTaskId,
+    currentAppearingTaskId,
   } = useContext(TasksContext)
 
   return (
     <li
-      className={`${styles.item} ${className}`}
+      className={`${styles.item} 
+      ${id === currentAppearingTaskId ? styles.isAppearing : ""} 
+      ${id === currentDeleteTaskId ? styles.isDisappearing : ""}`}
       ref={id === firstIncompleteTaskId ? firstIncompleteTaskRef : null}
     >
       <input

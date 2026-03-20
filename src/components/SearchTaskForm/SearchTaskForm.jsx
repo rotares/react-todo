@@ -6,7 +6,6 @@ function SearchTaskForm(props) {
   const { styles } = props
   const { searchQuery, setSearchQuery } = useContext(TasksContext)
 
-  console.log(123)
   //передаем колббек который будет возвращать уже значение из инпута
   return (
     <form onSubmit={(e) => e.preventDefault()} className={styles.form}>

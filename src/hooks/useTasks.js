@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import tasksAPI from '@/api/tasksAPI'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 //кастомный хук
 const useTasks = () => {
@@ -10,6 +10,10 @@ const useTasks = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
   const newTaskTitleRef = useRef(null)
+
+  //для удаляемой задачи
+  const [currentDeleteTaskId, setCurrentDeleteTaskId] = useState(null)
+  const [currentAppearingTaskId, setCurrentAppearingTaskId] = useState(null)
 
   //сохраняем ссылку на функцию при ререндерах
   const deleteAllTasks = useCallback(() => {
@@ -26,8 +30,11 @@ const useTasks = () => {
       tasksAPI
         .delete(id)
         .then(() => {
-          //фильтруем массив
-          setTasks(tasks.filter((task) => task.id !== id))
+          setCurrentDeleteTaskId(id)
+          setTimeout(() => {
+            setTasks(tasks.filter((task) => task.id !== id))
+            setCurrentDeleteTaskId(null)
+          }, 400)
         })
         .catch(console.log)
     },
@@ -67,8 +74,11 @@ const useTasks = () => {
         setTasks((prevTasks) => [...prevTasks, addedTask])
         setNewTaskTitle('')
         setSearchQuery('')
-
         newTaskTitleRef.current.focus()
+        //устанавливаем  айди добавляемой задачи
+        setCurrentAppearingTaskId(addedTask.id)
+        //обнуляем
+        setTimeout(() => setCurrentAppearingTaskId(null), 400)
       })
       .catch(console.log)
   }, [])
@@ -100,6 +110,8 @@ const useTasks = () => {
     newTaskTitle,
     searchQuery,
     newTaskTitleRef,
+    currentDeleteTaskId,
+    currentAppearingTaskId,
     deleteAllTasks,
     deleteTask,
     addTask,

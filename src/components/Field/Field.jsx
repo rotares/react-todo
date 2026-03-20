@@ -13,7 +13,6 @@ function Field(props) {
     error,
   } = props
 
-  console.log(styles)
   return (
     <div className={`${styles.field} ${className} `}>
       <label className={`${styles.label}`} htmlFor={id}>
