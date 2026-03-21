@@ -32,7 +32,7 @@ const localAPI = {
 
     const newTask = {
       ...task,
-      id: crypto?.randomUUID ?? Date.now().toString(),
+      id: Date.now().toString(),
     }
 
     write([...read(), newTask])

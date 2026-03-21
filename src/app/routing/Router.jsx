@@ -1,4 +1,13 @@
+import { BASE_URL } from "@/shared/constants"
 import { useEffect, useState } from "react"
+
+const getCurrentPath = () => {
+  const pathname = window.location.pathname
+
+  return pathname.startsWith(BASE_URL)
+    ? pathname.slice(BASE_URL.length - 1) || "/"
+    : pathname
+}
 
 const mathPath = (path, route) => {
   const pathParts = path.split("/")
@@ -29,11 +38,11 @@ const mathPath = (path, route) => {
 
 //получаем и устанавливаем роут
 const useRoute = () => {
-  const [path, setPath] = useState(window.location.pathname)
+  const [path, setPath] = useState(getCurrentPath())
 
   useEffect(() => {
     const onLocationChange = () => {
-      setPath(window.location.pathname)
+      setPath(getCurrentPath())
     }
 
     //меняем роут по событию (попстейт вызывается при смене страницы < >)
