@@ -1,5 +1,5 @@
 // импортируем кастомный хук
-import { createContext } from "react"
+import { createContext, useMemo } from "react"
 import useIncompleteTaskScroll from "./useIncompleteTaskScroll"
 import useTasks from "./useTasks"
 
@@ -26,27 +26,42 @@ export default function TasksProvider({ children }) {
   const { firstIncompleteTaskId, firstIncompleteTaskRef } =
     useIncompleteTaskScroll(tasks)
 
-  return (
-    <TasksContext.Provider
-      value={{
-        tasks,
-        filteredTasks,
-        newTaskTitle,
-        searchQuery,
-        newTaskTitleRef,
-        firstIncompleteTaskId,
-        firstIncompleteTaskRef,
-        deleteAllTasks,
-        deleteTask,
-        addTask,
-        toggleTaskComplete,
-        setSearchQuery,
-        setNewTaskTitle,
-        currentDeleteTaskId,
-        currentAppearingTaskId,
-      }}
-    >
-      {children}
-    </TasksContext.Provider>
+  const value = useMemo(
+    () => ({
+      tasks,
+      filteredTasks,
+      newTaskTitle,
+      searchQuery,
+      newTaskTitleRef,
+      deleteAllTasks,
+      deleteTask,
+      addTask,
+      toggleTaskComplete,
+      setSearchQuery,
+      setNewTaskTitle,
+      currentAppearingTaskId,
+      currentDeleteTaskId,
+      firstIncompleteTaskId,
+      firstIncompleteTaskRef,
+    }),
+    [
+      tasks,
+      filteredTasks,
+      newTaskTitle,
+      searchQuery,
+      newTaskTitleRef,
+      deleteAllTasks,
+      deleteTask,
+      addTask,
+      toggleTaskComplete,
+      setSearchQuery,
+      setNewTaskTitle,
+      currentAppearingTaskId,
+      currentDeleteTaskId,
+      firstIncompleteTaskId,
+      firstIncompleteTaskRef,
+    ],
   )
+
+  return <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
 }
