@@ -1,12 +1,6 @@
 import tasksAPI from '@/shared/api/tasks'
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer,
-  useRef,
-  useState,
-} from 'react'
+
+import { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
 
 //кастомный хук
 const useTasks = () => {
@@ -54,14 +48,10 @@ const useTasks = () => {
   //хук для обновления состояния, начальное состояние
   const [tasks, dispatch] = useReducer(tasksReducer, [])
 
-  const [newTaskTitle, setNewTaskTitle] = useState('')
-  const [searchQuery, setSearchQuery] = useState('')
-
-  const newTaskTitleRef = useRef(null)
-
   //для удаляемой задачи
   const [currentDeleteTaskId, setCurrentDeleteTaskId] = useState(null)
   const [currentAppearingTaskId, setCurrentAppearingTaskId] = useState(null)
+  const [searchQuery, setSearchQuery] = useState('')
 
   //сохраняем ссылку на функцию при ререндерах
   const deleteAllTasks = useCallback(() => {
@@ -96,7 +86,7 @@ const useTasks = () => {
       )
   }, [])
 
-  const addTask = useCallback((title) => {
+  const addTask = useCallback((title, callbackAfterAdded) => {
     const newTask = {
       title,
       isDone: false,
@@ -107,9 +97,8 @@ const useTasks = () => {
       .add(newTask)
       .then((addedTask) => {
         dispatch({ type: reducerActions.add, task: addedTask })
-        setNewTaskTitle('')
+        callbackAfterAdded()
         setSearchQuery('')
-        newTaskTitleRef.current.focus()
         //устанавливаем  айди добавляемой задачи
         setCurrentAppearingTaskId(addedTask.id)
         //обнуляем
@@ -121,8 +110,6 @@ const useTasks = () => {
   //делаем фокус на инпуте
   //делаем fetch запрос
   useEffect(() => {
-    newTaskTitleRef.current.focus()
-
     //далем get запрос от сервака
     tasksAPI
       .getAll()
@@ -147,9 +134,7 @@ const useTasks = () => {
   return {
     tasks,
     filteredTasks,
-    newTaskTitle,
     searchQuery,
-    newTaskTitleRef,
     currentDeleteTaskId,
     currentAppearingTaskId,
     deleteAllTasks,
@@ -157,7 +142,6 @@ const useTasks = () => {
     addTask,
     toggleTaskComplete,
     setSearchQuery,
-    setNewTaskTitle,
   }
 }
 

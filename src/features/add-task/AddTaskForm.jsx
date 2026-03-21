@@ -1,16 +1,17 @@
 import { TasksContext } from "@/entities/todo"
 import Button from "@/shared/ui/Button"
 import Field from "@/shared/ui/Field"
-import { memo, useContext, useState } from "react"
+import { memo, useContext, useEffect, useRef, useState } from "react"
 
 //форма добавления задачи
 function AddTaskForm(props) {
   const { styles } = props
 
-  const { addTask, newTaskTitle, setNewTaskTitle, newTaskTitleRef } =
-    useContext(TasksContext)
+  const { addTask } = useContext(TasksContext)
+  const newTaskTitleRef = useRef(null)
 
   //состояние
+  const [newTaskTitle, setNewTaskTitle] = useState("")
   const [error, setError] = useState(null)
 
   const clearTitle = newTaskTitle.trim()
@@ -20,7 +21,10 @@ function AddTaskForm(props) {
     e.preventDefault()
 
     if (!isTitleEmpty) {
-      addTask(clearTitle)
+      addTask(clearTitle, () => {
+        setNewTaskTitle("")
+        newTaskTitleRef?.current.focus()
+      })
     }
   }
 
@@ -33,6 +37,10 @@ function AddTaskForm(props) {
     setNewTaskTitle(value)
     setError(hasOnlySpaces ? "Error, only spaces" : null)
   }
+
+  useEffect(() => {
+    newTaskTitleRef?.current.focus()
+  }, [])
 
   return (
     <form onSubmit={onSubmit} className={styles.form}>
