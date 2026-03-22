@@ -1,10 +1,10 @@
-import { TasksContext } from "@/entities/todo"
+import { useSearchTask } from "@/entities/todo/model/SearchTaskContext"
 import Field from "@/shared/ui/Field"
-import { memo, useContext } from "react"
+import { memo } from "react"
 
 function SearchTaskForm(props) {
   const { styles } = props
-  const { searchQuery, setSearchQuery } = useContext(TasksContext)
+  const { searchQuery, setSearchQuery } = useSearchTask()
 
   //передаем колббек который будет возвращать уже значение из инпута
   return (

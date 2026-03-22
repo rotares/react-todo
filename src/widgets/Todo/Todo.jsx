@@ -1,9 +1,10 @@
 import { TasksContext, TodoList } from "@/entities/todo"
+import { SearchTaskProvider } from "@/entities/todo/model/SearchTaskContext"
 import AddTaskForm from "@/features/add-task"
 import SearchTaskForm from "@/features/search-task"
 import TodoInfo from "@/features/stat-task"
 import Button from "@/shared/ui/Button"
-import { useContext } from "react"
+import { memo, useContext } from "react"
 import styles from "./Todo.module.css"
 
 function Todo() {
@@ -13,20 +14,23 @@ function Todo() {
     <div className={styles.todo}>
       <h1 className={styles.title}>To Do List</h1>
       <AddTaskForm styles={styles} />
-      <SearchTaskForm styles={styles} />
-      <TodoInfo styles={styles} />
-      <Button
-        onClick={() => {
-          firstIncompleteTaskRef.current?.scrollIntoView({
-            behaviour: "smooth",
-          })
-        }}
-      >
-        Show first incomplete task
-      </Button>
-      <TodoList styles={styles} />
+
+      <SearchTaskProvider>
+        <SearchTaskForm styles={styles} />
+        <Button
+          onClick={() => {
+            firstIncompleteTaskRef.current?.scrollIntoView({
+              behaviour: "smooth",
+            })
+          }}
+        >
+          Show first incomplete task
+        </Button>
+        <TodoInfo styles={styles} />
+        <TodoList styles={styles} />
+      </SearchTaskProvider>
     </div>
   )
 }
 
-export default Todo
+export default memo(Todo)
