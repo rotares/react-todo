@@ -9,7 +9,6 @@ export default function TasksProvider({ children }) {
   //получаем сущности из хука
   const {
     tasks,
-    filteredTasks,
     newTaskTitleRef,
     deleteAllTasks,
     deleteTask,
@@ -17,8 +16,6 @@ export default function TasksProvider({ children }) {
     toggleTaskComplete,
     currentAppearingTaskId,
     currentDeleteTaskId,
-    searchQuery,
-    setSearchQuery,
   } = useTasks()
 
   const { firstIncompleteTaskId, firstIncompleteTaskRef } =
@@ -27,7 +24,6 @@ export default function TasksProvider({ children }) {
   const value = useMemo(
     () => ({
       tasks,
-      filteredTasks,
       newTaskTitleRef,
       deleteAllTasks,
       deleteTask,
@@ -37,12 +33,9 @@ export default function TasksProvider({ children }) {
       currentDeleteTaskId,
       firstIncompleteTaskId,
       firstIncompleteTaskRef,
-      searchQuery,
-      setSearchQuery,
     }),
     [
       tasks,
-      filteredTasks,
       newTaskTitleRef,
       deleteAllTasks,
       deleteTask,
@@ -52,8 +45,6 @@ export default function TasksProvider({ children }) {
       currentDeleteTaskId,
       firstIncompleteTaskId,
       firstIncompleteTaskRef,
-      searchQuery,
-      setSearchQuery,
     ],
   )
 

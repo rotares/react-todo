@@ -1,7 +1,6 @@
 import tasksAPI from '@/shared/api/tasks'
 
-import { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
-
+import { useCallback, useEffect, useReducer, useState } from 'react'
 //кастомный хук
 const useTasks = () => {
   //действия для редюсера
@@ -51,7 +50,6 @@ const useTasks = () => {
   //для удаляемой задачи
   const [currentDeleteTaskId, setCurrentDeleteTaskId] = useState(null)
   const [currentAppearingTaskId, setCurrentAppearingTaskId] = useState(null)
-  const [searchQuery, setSearchQuery] = useState('')
 
   //сохраняем ссылку на функцию при ререндерах
   const deleteAllTasks = useCallback(() => {
@@ -98,7 +96,6 @@ const useTasks = () => {
       .then((addedTask) => {
         dispatch({ type: reducerActions.add, task: addedTask })
         callbackAfterAdded()
-        setSearchQuery('')
         //устанавливаем  айди добавляемой задачи
         setCurrentAppearingTaskId(addedTask.id)
         //обнуляем
@@ -119,29 +116,14 @@ const useTasks = () => {
       .catch(console.log)
   }, [])
 
-  //фильтрованный массив
-  const filteredTasks = useMemo(() => {
-    //получаем строку без пробелов
-    const clearSearchQuery = searchQuery.toLowerCase().trim().length > 0
-
-    return clearSearchQuery
-      ? tasks.filter(({ title }) =>
-          title.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      : null
-  }, [searchQuery, tasks])
-
   return {
     tasks,
-    filteredTasks,
-    searchQuery,
     currentDeleteTaskId,
     currentAppearingTaskId,
     deleteAllTasks,
     deleteTask,
     addTask,
     toggleTaskComplete,
-    setSearchQuery,
   }
 }
 

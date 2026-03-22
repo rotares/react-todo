@@ -1,10 +1,12 @@
 import { TasksContext, TodoItem } from "@/entities/todo"
 import { memo, useContext } from "react"
+import { useFilteredTasks } from "../../model/useFilteredTasks"
 
 function TodoList(props) {
   const { styles } = props
 
-  const { tasks, filteredTasks } = useContext(TasksContext)
+  const { tasks } = useContext(TasksContext)
+  const filteredTasks = useFilteredTasks()
 
   const hasTasks = tasks.length > 0
 

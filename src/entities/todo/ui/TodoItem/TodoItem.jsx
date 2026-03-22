@@ -2,6 +2,7 @@ import { TasksContext } from "@/entities/todo"
 import RouterLink from "@/shared/ui/RouterLink"
 import { highlightCaseInsensitive } from "@/shared/utils/highlight"
 import { memo, useContext } from "react"
+import { useSearchTask } from "../../model/SearchTaskContext"
 import styles from "./TodoItem.module.css"
 
 //компонент одной задачи
@@ -15,9 +16,9 @@ function TodoItem(props) {
     deleteTask,
     currentDeleteTaskId,
     currentAppearingTaskId,
-    searchQuery,
   } = useContext(TasksContext)
 
+  const { searchQuery } = useSearchTask()
   const highlightedTitle = highlightCaseInsensitive(title, searchQuery)
 
   return (
