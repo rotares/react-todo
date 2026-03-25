@@ -1,68 +1,21 @@
+import { useState } from "react"
+import { TodoItem } from "./TodoItem"
+
 export const TodoList = () => {
+  const [tasks, setTasks] = useState(() => [
+    { id: Date.now().toString(), title: "123", isCompleted: true },
+    { id: Date.now().toString(), title: "321", isCompleted: false },
+  ])
+
+  if (tasks.length === 0) {
+    return <div className="todo__empty-message">You haven't tasks yet</div>
+  }
+
   return (
-    <>
-      <ul className="todo__list">
-        <li className="todo__item todo-item">
-          <input
-            className="todo-item__checkbox"
-            id="task-1"
-            type="checkbox"
-            checked
-          />
-          <label className="todo-item__label" htmlFor="task-1">
-            Task 1
-          </label>
-          <button
-            className="todo-item__delete-button"
-            aria-label="Delete"
-            title="Delete"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15 5L5 15M5 5L15 15"
-                stroke="#757575"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </li>
-        <li className="todo__item todo-item">
-          <input className="todo-item__checkbox" id="task-2" type="checkbox" />
-          <label className="todo-item__label" htmlFor="task-2">
-            Task 2
-          </label>
-          <button
-            className="todo-item__delete-button"
-            aria-label="Delete"
-            title="Delete"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15 5L5 15M5 5L15 15"
-                stroke="#757575"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </li>
-      </ul>
-      <div className="todo__empty-message"></div>
-    </>
+    <ul className="todo__list">
+      {tasks.map((task) => {
+        return <TodoItem key={task.id} task={task} />
+      })}
+    </ul>
   )
 }
