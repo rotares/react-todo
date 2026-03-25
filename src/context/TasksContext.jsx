@@ -4,14 +4,16 @@ import { createContext, useContext, useMemo } from "react"
 const TasksContext = createContext({})
 
 export const TasksProvider = ({ children }) => {
-  const { tasks, setTasks } = useTasks()
+  const { tasks, addTask, changeCompleteStatus, deleteTask } = useTasks()
 
   const value = useMemo(
     () => ({
       tasks,
-      setTasks,
+      addTask,
+      changeCompleteStatus,
+      deleteTask,
     }),
-    [tasks, setTasks],
+    [tasks, addTask, changeCompleteStatus, deleteTask],
   )
 
   return <TasksContext.Provider value={value}>{children}</TasksContext.Provider>

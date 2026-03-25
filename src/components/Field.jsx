@@ -1,5 +1,5 @@
 export const Field = (props) => {
-  const { label, id, type = "text", onInput } = props
+  const { value, label, id, type = "text", onInput, ref } = props
 
   return (
     <div className="todo__field field">
@@ -7,10 +7,12 @@ export const Field = (props) => {
         {label}
       </label>
       <input
+        value={value}
         className="field__input"
         id={id}
         type={type}
         onInput={onInput}
+        ref={ref}
         placeholder=" "
         autoComplete="off"
       />

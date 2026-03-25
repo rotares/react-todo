@@ -1,5 +1,9 @@
+import { useTasksContext } from "../context/TasksContext"
+import { Button } from "./Button"
+
 export const TodoItem = (props) => {
   const { task } = props
+  const { changeCompleteStatus, deleteTask } = useTasksContext()
 
   return (
     <li className="todo__item todo-item">
@@ -8,14 +12,17 @@ export const TodoItem = (props) => {
         id={task.id}
         type="checkbox"
         checked={task.isCompleted}
+        onChange={(e) => changeCompleteStatus(task.id, e.target.checked)}
       />
       <label className="todo-item__label" htmlFor={task.id}>
         {task.title}
       </label>
-      <button
+
+      <Button
         className="todo-item__delete-button"
         aria-label="Delete"
         title="Delete"
+        onClick={() => deleteTask(task.id)}
       >
         <svg
           width="20"
@@ -32,7 +39,14 @@ export const TodoItem = (props) => {
             strokeLinejoin="round"
           />
         </svg>
-      </button>
+      </Button>
+
+      {/* <button
+        className="todo-item__delete-button"
+        aria-label="Delete"
+        title="Delete"
+        onClick={() => deleteTask(task.id)}
+      ></button> */}
     </li>
   )
 }
