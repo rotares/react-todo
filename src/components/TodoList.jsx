@@ -6,8 +6,14 @@ export const TodoList = () => {
   const { tasks } = useTasksContext()
   const filteredTasks = useFilteredTasks()
 
-  if (tasks.length === 0) {
+  const hasTasks = tasks.length > 0
+
+  if (!hasTasks) {
     return <div className="todo__empty-message">You have no tasks yet</div>
+  }
+
+  if (hasTasks && filteredTasks?.length === 0) {
+    return <div className="todo__empty-message">Cannot Find Tasks</div>
   }
 
   return (
