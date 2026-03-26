@@ -3,10 +3,18 @@ import { Button } from "./Button"
 
 export const TodoItem = (props) => {
   const { task } = props
-  const { changeCompleteStatus, deleteTask } = useTasksContext()
+  const {
+    changeCompleteStatus,
+    deleteTask,
+    firstIncompleteTaskRef,
+    firstIncompleteTaskId,
+  } = useTasksContext()
 
   return (
-    <li className="todo__item todo-item">
+    <li
+      className="todo__item todo-item"
+      ref={firstIncompleteTaskId === task.id ? firstIncompleteTaskRef : null}
+    >
       <input
         className="todo-item__checkbox"
         id={task.id}
