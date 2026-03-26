@@ -24,6 +24,8 @@ export const useTasks = () => {
       case 'deleteAll': {
         return action.tasks
       }
+      default:
+        return state
     }
   }
 

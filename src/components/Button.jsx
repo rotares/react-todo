@@ -4,11 +4,18 @@ export const Button = (props) => {
     type = "submit",
     children,
     onClick,
+    isDisabled,
     ...rest
   } = props
 
   return (
-    <button className={className} type={type} onClick={onClick} {...rest}>
+    <button
+      className={className}
+      disabled={isDisabled}
+      type={type}
+      onClick={onClick}
+      {...rest}
+    >
       {children}
     </button>
   )

@@ -7,14 +7,18 @@ export const AddTaskForm = () => {
   const [newTaskTitle, setNewTaskTitle] = useState("")
   const newTaskTitleRef = useRef(null)
 
+  const clearTitle = newTaskTitle.trim()
   const { addTask } = useTasksContext()
 
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (newTaskTitle.trim().length === 0) return
+    if (clearTitle.length === 0) {
+      alert("поле заголовка не должно быть пустым или состоять из пробелов")
+      return
+    }
 
-    addTask(newTaskTitle)
+    addTask(clearTitle)
     setNewTaskTitle("")
     newTaskTitleRef.current?.focus()
   }
@@ -32,7 +36,7 @@ export const AddTaskForm = () => {
         label="New Task"
         id="new-task"
       />
-      <Button>Add</Button>
+      <Button isDisabled={clearTitle.length === 0}>Add</Button>
     </form>
   )
 }
