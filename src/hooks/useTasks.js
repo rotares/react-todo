@@ -21,6 +21,9 @@ export const useTasks = () => {
             : task
         })
       }
+      case 'deleteAll': {
+        return action.tasks
+      }
     }
   }
 
@@ -29,6 +32,11 @@ export const useTasks = () => {
   const addTask = (title) => {
     const newTask = tasksAPI.add(title)
     dispatch({ type: 'add', newTask })
+  }
+
+  const deleteAllTasks = () => {
+    const tasks = tasksAPI.deleteAll()
+    dispatch({ type: 'deleteAll', tasks })
   }
 
   const deleteTask = (id) => {
@@ -46,5 +54,6 @@ export const useTasks = () => {
     addTask,
     changeCompleteStatus,
     deleteTask,
+    deleteAllTasks,
   }
 }

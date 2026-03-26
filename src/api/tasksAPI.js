@@ -29,6 +29,11 @@ export const tasksAPI = {
     tasksAPI.write(tasks)
   },
 
+  deleteAll: () => {
+    tasksAPI.write([])
+    return []
+  },
+
   toggleCompete: (id, isCompleted) => {
     const tasks = tasksAPI.read().map((task) => {
       return task.id === id
