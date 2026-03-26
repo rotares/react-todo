@@ -3,16 +3,38 @@ import { Button } from "./Button"
 
 export const TodoItem = (props) => {
   const { task } = props
+
   const {
     changeCompleteStatus,
     deleteTask,
     firstIncompleteTaskRef,
     firstIncompleteTaskId,
+    animationState,
+    setAnimationState,
   } = useTasksContext()
+
+  const handleDelete = () => {
+    setAnimationState((prev) => {
+      const next = new Map(prev)
+      next.set(task.id, { delete: true })
+      return next
+    })
+  }
 
   return (
     <li
-      className="todo__item todo-item"
+      onAnimationEnd={(e) => {
+        setAnimationState((prev) => {
+          const next = new Map(prev)
+          next.delete(task.id)
+          return next
+        })
+
+        if (e.animationName === "dis") {
+          deleteTask(task.id)
+        }
+      }}
+      className={`todo__item todo-item ${animationState?.get(task.id)?.delete ? "is-disappearing" : ""} ${animationState?.get(task.id)?.add ? "is-appearing" : ""}`}
       ref={firstIncompleteTaskId === task.id ? firstIncompleteTaskRef : null}
     >
       <input
@@ -30,7 +52,7 @@ export const TodoItem = (props) => {
         className="todo-item__delete-button"
         aria-label="Delete"
         title="Delete"
-        onClick={() => deleteTask(task.id)}
+        onClick={handleDelete}
       >
         <svg
           width="20"
@@ -48,13 +70,6 @@ export const TodoItem = (props) => {
           />
         </svg>
       </Button>
-
-      {/* <button
-        className="todo-item__delete-button"
-        aria-label="Delete"
-        title="Delete"
-        onClick={() => deleteTask(task.id)}
-      ></button> */}
     </li>
   )
 }

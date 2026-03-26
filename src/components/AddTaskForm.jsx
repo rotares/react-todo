@@ -8,7 +8,7 @@ export const AddTaskForm = () => {
   const newTaskTitleRef = useRef(null)
 
   const clearTitle = newTaskTitle.trim()
-  const { addTask } = useTasksContext()
+  const { addTask, setAnimationState } = useTasksContext()
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -18,7 +18,14 @@ export const AddTaskForm = () => {
       return
     }
 
-    addTask(clearTitle)
+    const newTask = addTask(clearTitle)
+
+    setAnimationState((prev) => {
+      const next = new Map(prev)
+      next.set(newTask.id, { add: true })
+      return next
+    })
+
     setNewTaskTitle("")
     newTaskTitleRef.current?.focus()
   }

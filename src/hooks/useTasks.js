@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import { useReducer, useState } from 'react'
 import { tasksAPI } from '../api/tasksAPI'
 
 export const useTasks = () => {
@@ -30,20 +30,23 @@ export const useTasks = () => {
   }
 
   const [tasks, dispatch] = useReducer(tasksReducer, [], () => tasksAPI.read())
+  //состояния для анимаций
+  const [animationState, setAnimationState] = useState(new Map())
 
   const addTask = (title) => {
     const newTask = tasksAPI.add(title)
     dispatch({ type: 'add', newTask })
-  }
-
-  const deleteAllTasks = () => {
-    const tasks = tasksAPI.deleteAll()
-    dispatch({ type: 'deleteAll', tasks })
+    return newTask
   }
 
   const deleteTask = (id) => {
     tasksAPI.delete(id)
     dispatch({ type: 'delete', id })
+  }
+
+  const deleteAllTasks = () => {
+    const tasks = tasksAPI.deleteAll()
+    dispatch({ type: 'deleteAll', tasks })
   }
 
   const changeCompleteStatus = (id, isCompleted) => {
@@ -57,5 +60,7 @@ export const useTasks = () => {
     changeCompleteStatus,
     deleteTask,
     deleteAllTasks,
+    animationState,
+    setAnimationState,
   }
 }

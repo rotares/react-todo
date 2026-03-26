@@ -5,8 +5,15 @@ import { useIncompleteTaskScroll } from "../hooks/useIncompleteTaskScroll"
 const TasksContext = createContext({})
 
 export const TasksProvider = ({ children }) => {
-  const { tasks, addTask, changeCompleteStatus, deleteTask, deleteAllTasks } =
-    useTasks()
+  const {
+    tasks,
+    addTask,
+    changeCompleteStatus,
+    deleteTask,
+    deleteAllTasks,
+    animationState,
+    setAnimationState,
+  } = useTasks()
 
   const { firstIncompleteTaskId, firstIncompleteTaskRef } =
     useIncompleteTaskScroll(tasks)
@@ -20,6 +27,8 @@ export const TasksProvider = ({ children }) => {
       deleteAllTasks,
       firstIncompleteTaskId,
       firstIncompleteTaskRef,
+      animationState,
+      setAnimationState,
     }),
     [
       tasks,
@@ -29,6 +38,8 @@ export const TasksProvider = ({ children }) => {
       deleteAllTasks,
       firstIncompleteTaskRef,
       firstIncompleteTaskId,
+      animationState,
+      setAnimationState,
     ],
   )
 

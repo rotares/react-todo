@@ -1,3 +1,17 @@
+@keyframes appearing {
+  from {
+    opacity: 0;
+    translate: 0 -75%;
+  }
+}
+
+@keyframes dis {
+  to {
+    opacity: 0;
+    translate: 0 -75%;
+  }
+}
+
 .todo-item {
   display: flex;
   align-items: center;
@@ -11,9 +25,10 @@
   }
 
   &.is-disappearing {
-    opacity: 0;
-    translate: 0 -75%;
-    transition-duration: calc(var(--transition-duration) * 2);
+    /* opacity: 0;
+    translate: 0 -75%; */
+    animation: dis calc(var(--transition-duration) * 2);
+    /* transition-duration: calc(var(--transition-duration) * 2); */
     pointer-events: none;
 
     & ~ .todo-item {
@@ -22,6 +37,10 @@
       transition-duration: var(--transition-duration);
       pointer-events: none;
     }
+  }
+
+  &.is-appearing {
+    animation: appearing calc(var(--transition-duration) * 2);
   }
 }
 
@@ -52,14 +71,15 @@
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 50%;
     translate: -50% -50%;
     width: 16px;
     height: 16px;
-    background: url('../../assets/icons/icon-check_white.svg') center/contain no-repeat;
+    background: url("../../assets/icons/icon-check_white.svg") center/contain
+      no-repeat;
   }
 }
 
