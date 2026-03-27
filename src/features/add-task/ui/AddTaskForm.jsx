@@ -3,7 +3,9 @@ import { Button } from "@/shared/ui/Button"
 import { Field } from "@/shared/ui/Field/Field"
 import { useRef, useState } from "react"
 
-export const AddTaskForm = () => {
+export const AddTaskForm = (props) => {
+  const { styles } = props
+
   const [newTaskTitle, setNewTaskTitle] = useState("")
   const newTaskTitleRef = useRef(null)
 
@@ -35,11 +37,12 @@ export const AddTaskForm = () => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="todo__form">
+    <form onSubmit={onSubmit} className={styles.form}>
       <Field
         ref={newTaskTitleRef}
         onInput={onInput}
         value={newTaskTitle}
+        className={styles.field}
         label="New Task"
         id="new-task"
       />

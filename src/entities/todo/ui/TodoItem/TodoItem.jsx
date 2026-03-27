@@ -1,5 +1,6 @@
 import { Button } from "@/shared/ui/Button"
 import { useTasksContext } from "../../model"
+import styles from "./TodoItem.module.css"
 
 export const TodoItem = (props) => {
   const { task } = props
@@ -30,26 +31,26 @@ export const TodoItem = (props) => {
           return next
         })
 
-        if (e.animationName === "dis") {
+        console.log(e)
+        if (e.animationName === styles.dis) {
           deleteTask(task.id)
         }
       }}
-      className={`todo__item todo-item ${animationState?.get(task.id)?.delete ? "is-disappearing" : ""} ${animationState?.get(task.id)?.add ? "is-appearing" : ""}`}
+      className={`${styles.todoItem} ${animationState?.get(task.id)?.delete ? styles.isDisappearing : ""} ${animationState?.get(task.id)?.add ? styles.isAppearing : ""}`}
       ref={firstIncompleteTaskId === task.id ? firstIncompleteTaskRef : null}
     >
       <input
-        className="todo-item__checkbox"
+        className={styles.checkbox}
         id={task.id}
         type="checkbox"
         checked={task.isCompleted}
         onChange={(e) => changeCompleteStatus(task.id, e.target.checked)}
       />
-      <label className="todo-item__label" htmlFor={task.id}>
+      <label className={styles.label} htmlFor={task.id}>
         {task.title}
       </label>
-
       <Button
-        className="todo-item__delete-button"
+        className={styles.deleteButton}
         aria-label="Delete"
         title="Delete"
         onClick={handleDelete}
