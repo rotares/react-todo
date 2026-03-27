@@ -1,16 +1,11 @@
+import styles from "./Button.module.css"
+
 export const Button = (props) => {
-  const {
-    className = "button",
-    type = "submit",
-    children,
-    onClick,
-    isDisabled,
-    ...rest
-  } = props
+  const { type = "submit", children, onClick, isDisabled, ...rest } = props
 
   return (
     <button
-      className={className}
+      className={styles.button}
       disabled={isDisabled}
       type={type}
       onClick={onClick}
