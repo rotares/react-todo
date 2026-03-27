@@ -1,5 +1,5 @@
 import { useReducer, useState } from 'react'
-import { tasksAPI } from '../api/tasksAPI'
+import { tasksAPI } from '../../api'
 
 export const useTasks = () => {
   const tasksReducer = (state, action) => {

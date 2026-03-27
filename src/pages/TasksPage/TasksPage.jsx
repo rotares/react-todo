@@ -1,4 +1,4 @@
-import { TasksProvider } from "@/entities/todo/model/TasksContext"
+import { TasksProvider } from "@/entities/todo/model"
 import { Todo } from "@/widgets/Todo"
 
 export const TasksPage = () => {

@@ -1,5 +1,4 @@
-import { useTasksContext } from "../../model/TasksContext"
-import { useFilteredTasks } from "../../model/useFilteredTasks"
+import { useFilteredTasks, useTasksContext } from "../../model"
 import { TodoItem } from "../TodoItem"
 
 export const TodoList = () => {

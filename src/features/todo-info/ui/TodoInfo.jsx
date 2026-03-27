@@ -1,4 +1,4 @@
-import { useTasksContext } from "@/entities/todo/model/TasksContext"
+import { useTasksContext } from "@/entities/todo/model"
 import { Button } from "@/shared/ui/Button"
 
 export const TodoInfo = () => {

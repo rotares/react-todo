@@ -1,4 +1,4 @@
-import { useSearchContext } from "@/entities/todo/model/SearchTasksContext"
+import { useSearchContext } from "@/entities/todo/model"
 import { Field } from "@/shared/ui/Field"
 
 export const SearchTaskForm = () => {

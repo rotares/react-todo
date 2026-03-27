@@ -1,6 +1,5 @@
 import { createContext, useContext, useMemo } from "react"
-import { useIncompleteTaskScroll } from "./useIncompleteTaskScroll"
-import { useTasks } from "./useTasks"
+import { useIncompleteTaskScroll, useTasks } from "../hooks"
 
 const TasksContext = createContext({})
 

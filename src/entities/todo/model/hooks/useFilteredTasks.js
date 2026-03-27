@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
-import { useSearchContext } from './SearchTasksContext'
-import { useTasksContext } from './TasksContext'
+import { useSearchContext, useTasksContext } from '../context'
 
 export const useFilteredTasks = () => {
   const { tasks } = useTasksContext()

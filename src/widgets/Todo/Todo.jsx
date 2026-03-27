@@ -1,6 +1,5 @@
 import { TodoList } from "@/entities/todo"
-import { SearchTasksProvider } from "@/entities/todo/model/SearchTasksContext"
-import { useTasksContext } from "@/entities/todo/model/TasksContext"
+import { SearchTasksProvider, useTasksContext } from "@/entities/todo/model"
 import { AddTaskForm } from "@/features/add-task"
 import { SearchTaskForm } from "@/features/search-task"
 import { TodoInfo } from "@/features/todo-info"
