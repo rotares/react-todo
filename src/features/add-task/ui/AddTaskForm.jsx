@@ -1,7 +1,7 @@
+import { useTasksContext } from "@/entities/todo/model/TasksContext"
+import { Button } from "@/shared/ui/Button"
+import { Field } from "@/shared/ui/Field/Field"
 import { useRef, useState } from "react"
-import { useTasksContext } from "../context/TasksContext"
-import { Button } from "./Button"
-import { Field } from "./Field"
 
 export const AddTaskForm = () => {
   const [newTaskTitle, setNewTaskTitle] = useState("")

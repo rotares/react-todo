@@ -1,4 +1,4 @@
-import { TasksPage } from "./components/TasksPage"
+import TasksPage from "@/pages/TasksPage"
 
 const App = () => {
   return <TasksPage />

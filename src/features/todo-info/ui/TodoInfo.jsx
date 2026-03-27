@@ -1,5 +1,5 @@
-import { useTasksContext } from "../context/TasksContext"
-import { Button } from "./Button"
+import { useTasksContext } from "@/entities/todo/model/TasksContext"
+import { Button } from "@/shared/ui/Button"
 
 export const TodoInfo = () => {
   const { tasks, deleteAllTasks } = useTasksContext()

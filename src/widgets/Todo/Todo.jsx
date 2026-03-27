@@ -1,10 +1,10 @@
-import { SearchTasksProvider } from "../context/SearchTasksContext"
-import { useTasksContext } from "../context/TasksContext"
-import { AddTaskForm } from "./AddTaskForm"
-import { Button } from "./Button"
-import { SearchTaskForm } from "./SearchTaskForm"
-import { TodoInfo } from "./TodoInfo"
-import { TodoList } from "./TodoList"
+import { TodoList } from "@/entities/todo"
+import { SearchTasksProvider } from "@/entities/todo/model/SearchTasksContext"
+import { useTasksContext } from "@/entities/todo/model/TasksContext"
+import { AddTaskForm } from "@/features/add-task"
+import { SearchTaskForm } from "@/features/search-task"
+import { TodoInfo } from "@/features/todo-info"
+import { Button } from "@/shared/ui/Button"
 export const Todo = () => {
   const title = `To Do List`
   const { firstIncompleteTaskRef } = useTasksContext()
@@ -17,7 +17,7 @@ export const Todo = () => {
         <SearchTaskForm />
         <Button
           onClick={() => {
-            firstIncompleteTaskRef?.current.scrollIntoView({
+            firstIncompleteTaskRef?.current?.scrollIntoView({
               behaviour: "smooth",
               block: "center",
             })

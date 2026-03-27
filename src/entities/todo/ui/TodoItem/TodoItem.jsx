@@ -1,5 +1,5 @@
-import { useTasksContext } from "../context/TasksContext"
-import { Button } from "./Button"
+import { useTasksContext } from "../../model/TasksContext"
+import { Button } from "@/shared/ui/Button"
 
 export const TodoItem = (props) => {
   const { task } = props

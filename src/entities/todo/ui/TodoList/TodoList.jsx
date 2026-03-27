@@ -1,6 +1,6 @@
-import { useTasksContext } from "@/context/TasksContext"
-import { useFilteredTasks } from "../hooks/useFilteredTasks"
-import { TodoItem } from "./TodoItem"
+import { useTasksContext } from "../../model/TasksContext"
+import { useFilteredTasks } from "../../model/useFilteredTasks"
+import { TodoItem } from "../TodoItem"
 
 export const TodoList = () => {
   const { tasks } = useTasksContext()
