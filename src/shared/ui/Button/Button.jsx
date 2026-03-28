@@ -5,7 +5,7 @@ export const Button = (props) => {
 
   return (
     <button
-      className={styles.button}
+      className={` ${styles.button}`}
       disabled={isDisabled}
       type={type}
       onClick={onClick}

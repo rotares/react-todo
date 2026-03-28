@@ -25,7 +25,7 @@
   }
 
   &.isDisappearing {
-    animation: dis calc(var(--transition-duration) * 2);
+    animation: dis calc(var(--transition-duration) * 2) forwards !important;
     pointer-events: none;
 
     & ~ .todoItem {

@@ -4,7 +4,6 @@ import styles from "./TodoItem.module.css"
 
 export const TodoItem = (props) => {
   const { task } = props
-
   const {
     changeCompleteStatus,
     deleteTask,
@@ -25,12 +24,6 @@ export const TodoItem = (props) => {
   return (
     <li
       onAnimationEnd={(e) => {
-        setAnimationState((prev) => {
-          const next = new Map(prev)
-          next.delete(task.id)
-          return next
-        })
-
         console.log(e)
         if (e.animationName === styles.dis) {
           deleteTask(task.id)
