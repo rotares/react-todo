@@ -1,14 +1,14 @@
+import TaskDetails from "@/features/todo-details/ui/TaskDetails"
 import { useEffect, useState } from "react"
 import { tasksAPI } from "../../entities/todo/api"
 
 export const TaskPage = (props) => {
   const { params } = props
   const [task, setTask] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    setIsLoading(true)
     const task = tasksAPI.getById(params.id)
 
     if (task) {
@@ -25,13 +25,7 @@ export const TaskPage = (props) => {
   }
 
   if (task && !isLoading) {
-    return (
-      <div>
-        <div>ID: {task.id}</div>
-        <div>Title: {task.title}</div>
-        <div>Status: {task.isCompleted ? "completed" : "uncompleted"}</div>
-      </div>
-    )
+    return <TaskDetails task={task} />
   }
 
   if (error) {
