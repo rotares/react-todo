@@ -24,6 +24,10 @@ export const tasksAPI = {
     return newTask
   },
 
+  getById: (id) => {
+    return tasksAPI.read().find((task) => task.id === id) ?? null
+  },
+
   delete: (id) => {
     const tasks = tasksAPI.read().filter((task) => task.id !== id)
     tasksAPI.write(tasks)

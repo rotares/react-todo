@@ -1,4 +1,5 @@
 import { Button } from "@/shared/ui/Button"
+import RouterLink from "@/shared/ui/RouterLink"
 import { useTasksContext } from "../../model"
 import styles from "./TodoItem.module.css"
 
@@ -39,9 +40,15 @@ export const TodoItem = (props) => {
         checked={task.isCompleted}
         onChange={(e) => changeCompleteStatus(task.id, e.target.checked)}
       />
-      <label className={styles.label} htmlFor={task.id}>
+
+      <label className="visually-hidden" htmlFor={task.id}>
         {task.title}
       </label>
+
+      <RouterLink to={`/tasks/${task.id}`} className={styles.link}>
+        {task.title}
+      </RouterLink>
+
       <Button
         className={styles.deleteButton}
         aria-label="Delete"
