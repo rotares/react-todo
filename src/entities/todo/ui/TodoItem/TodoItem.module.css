@@ -55,9 +55,9 @@
     background-color: var(--color-dark-2);
     border-color: var(--color-dark-2);
 
-    & + .label {
+    & ~ .link {
       color: var(--color-gray-4);
-      text-decoration: line-through;
+      text-decoration: line-through !important;
     }
   }
 
@@ -83,6 +83,11 @@
 .label {
   width: 100%;
   pointer-events: none;
+}
+
+.link {
+  color: var(--color-dark-1);
+  text-decoration: none;
 }
 
 .deleteButton {
