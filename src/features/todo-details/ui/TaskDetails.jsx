@@ -1,11 +1,14 @@
 import { Button } from "@/shared/ui/Button"
+import { useNavigate } from "react-router"
 import styles from "./TodoDetails.module.css"
 
 const TaskDetails = (props) => {
+  let navigate = useNavigate()
+
   const { task } = props
 
   const onClick = () => {
-    history.back()
+    navigate("/")
   }
 
   return (

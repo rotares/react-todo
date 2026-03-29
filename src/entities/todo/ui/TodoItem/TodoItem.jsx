@@ -1,5 +1,5 @@
 import { Button } from "@/shared/ui/Button"
-import RouterLink from "@/shared/ui/RouterLink"
+import { Link } from "react-router"
 import { useTasksContext } from "../../model"
 import styles from "./TodoItem.module.css"
 
@@ -45,9 +45,11 @@ export const TodoItem = (props) => {
         {task.title}
       </label>
 
-      <RouterLink to={`/tasks/${task.id}`} className={styles.link}>
+      {/* <RouterLink to={`/tasks/${task.id}`} className={styles.link}>
         {task.title}
-      </RouterLink>
+      </RouterLink> */}
+
+      <Link to={`/tasks/${task.id}`}>{task.title}</Link>
 
       <Button
         className={styles.deleteButton}

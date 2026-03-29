@@ -1,15 +1,16 @@
+import { tasksAPI } from "@/entities/todo/api"
 import TaskDetails from "@/features/todo-details/ui/TaskDetails"
 import { useEffect, useState } from "react"
-import { tasksAPI } from "../../entities/todo/api"
+import { useParams } from "react-router"
 
-export const TaskPage = (props) => {
-  const { params } = props
+export const TaskPage = () => {
   const [task, setTask] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(false)
+  const { id } = useParams()
 
   useEffect(() => {
-    const task = tasksAPI.getById(params.id)
+    const task = tasksAPI.getById(id)
 
     if (task) {
       setTask(task)
