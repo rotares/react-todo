@@ -1,9 +1,14 @@
-import { createContext, useContext, useMemo } from "react"
+import type { TasksContextValue } from "@/shared/types"
+import { createContext, ReactNode, useContext, useMemo } from "react"
 import { useIncompleteTaskScroll, useTasks } from "../hooks"
 
-const TasksContext = createContext({})
+interface TasksContextProviderProps {
+  children?: ReactNode
+}
 
-export const TasksProvider = ({ children }) => {
+const TasksContext = createContext<TasksContextValue | null>(null)
+
+export const TasksProvider = ({ children }: TasksContextProviderProps) => {
   const {
     tasks,
     addTask,
@@ -17,7 +22,7 @@ export const TasksProvider = ({ children }) => {
   const { firstIncompleteTaskId, firstIncompleteTaskRef } =
     useIncompleteTaskScroll(tasks)
 
-  const value = useMemo(
+  const value = useMemo<TasksContextValue>(
     () => ({
       tasks,
       addTask,
