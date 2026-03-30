@@ -38,5 +38,11 @@ export const SearchTasksProvider = ({ children }: SearchTaskProps) => {
 }
 
 export const useSearchContext = () => {
-  return useContext(SearchTasksContext)
+  const context = useContext(SearchTasksContext)
+
+  if (!context) {
+    throw new Error("no context")
+  }
+
+  return context
 }

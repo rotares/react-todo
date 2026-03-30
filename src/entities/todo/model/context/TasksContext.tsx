@@ -51,5 +51,11 @@ export const TasksProvider = ({ children }: TasksContextProviderProps) => {
 }
 
 export const useTasksContext = () => {
-  return useContext(TasksContext)
+  const context = useContext(TasksContext)
+
+  if (!context) {
+    throw new Error("error")
+  }
+
+  return context
 }

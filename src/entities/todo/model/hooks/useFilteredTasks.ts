@@ -1,7 +1,10 @@
+import type { Tasks } from "@/shared/types"
 import { useMemo } from "react"
 import { useSearchContext, useTasksContext } from "../context"
 
-export const useFilteredTasks = () => {
+type useFilteredTasksType = Tasks | null
+
+export const useFilteredTasks = (): useFilteredTasksType => {
   const { tasks } = useTasksContext()
   const { searchQuery } = useSearchContext()
 
