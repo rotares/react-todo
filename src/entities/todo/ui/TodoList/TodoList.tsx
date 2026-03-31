@@ -1,7 +1,11 @@
 import { useFilteredTasks, useTasksContext } from "../../model"
 import { TodoItem } from "../TodoItem"
 
-export const TodoList = (props) => {
+interface TodoList {
+  styles: Record<string, string>
+}
+
+export const TodoList = (props: TodoList) => {
   const { styles } = props
 
   const { tasks } = useTasksContext()

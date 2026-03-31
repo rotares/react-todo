@@ -1,9 +1,14 @@
+import type { Task } from "@/shared/types"
 import { Button } from "@/shared/ui/Button"
 import { Link } from "react-router"
 import { useTasksContext } from "../../model"
 import styles from "./TodoItem.module.css"
 
-export const TodoItem = (props) => {
+interface TodoItemProps {
+  task: Task
+}
+
+export const TodoItem = (props: TodoItemProps) => {
   const { task } = props
   const {
     changeCompleteStatus,
