@@ -1,6 +1,6 @@
 import { useTasksContext } from "@/entities/todo/model"
 import { Button } from "@/shared/ui/Button"
-import { Field } from "@/shared/ui/Field/Field"
+import { Field } from "@/shared/ui/Field"
 import { useRef, useState } from "react"
 
 export const AddTaskForm = (props) => {
@@ -46,7 +46,7 @@ export const AddTaskForm = (props) => {
         label="New Task"
         id="new-task"
       />
-      <Button isDisabled={clearTitle.length === 0}>Add</Button>
+      <Button disabled={clearTitle.length === 0}>Add</Button>
     </form>
   )
 }

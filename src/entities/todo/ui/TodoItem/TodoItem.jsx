@@ -25,7 +25,6 @@ export const TodoItem = (props) => {
   return (
     <li
       onAnimationEnd={(e) => {
-        console.log(e)
         if (e.animationName === styles.dis) {
           deleteTask(task.id)
         }
@@ -44,10 +43,6 @@ export const TodoItem = (props) => {
       <label className="visually-hidden" htmlFor={task.id}>
         {task.title}
       </label>
-
-      {/* <RouterLink to={`/tasks/${task.id}`} className={styles.link}>
-        {task.title}
-      </RouterLink> */}
 
       <Link to={`/tasks/${task.id}`}>{task.title}</Link>
 

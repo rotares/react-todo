@@ -1,8 +1,13 @@
+import type { Task } from "@/shared/types"
 import { Button } from "@/shared/ui/Button"
 import { useNavigate } from "react-router"
 import styles from "./TodoDetails.module.css"
 
-const TaskDetails = (props) => {
+interface TaskDetailsProps {
+  task: Task
+}
+
+const TaskDetails = (props: TaskDetailsProps) => {
   let navigate = useNavigate()
 
   const { task } = props

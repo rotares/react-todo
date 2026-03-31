@@ -7,7 +7,6 @@ type ButtonProps = {
   type?: ButtonType
   children?: ReactNode
   onClick?: () => void
-  isDisabled: boolean
 } & Record<string | number, unknown>
 
 export const Button = (props: ButtonProps) => {
@@ -17,7 +16,6 @@ export const Button = (props: ButtonProps) => {
   return (
     <button
       className={` ${styles.button}`}
-      disabled={isDisabled}
       type={type}
       onClick={onClick}
       {...rest}
