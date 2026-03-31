@@ -6,7 +6,7 @@ export const useIncompleteTaskScroll = (tasks: Tasks) => {
     ({ isCompleted }) => !isCompleted,
   )?.id
 
-  const firstIncompleteTaskRef = useRef<HTMLDivElement>(null)
+  const firstIncompleteTaskRef = useRef<HTMLLIElement>(null)
 
   return {
     firstIncompleteTaskId,

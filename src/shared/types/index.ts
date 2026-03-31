@@ -34,5 +34,5 @@ export interface TasksContextValue {
   >
 
   firstIncompleteTaskId: Task["id"] | undefined
-  firstIncompleteTaskRef: React.RefObject<HTMLDivElement | null>
+  firstIncompleteTaskRef: React.RefObject<HTMLLIElement | null>
 }
