@@ -1,18 +1,20 @@
 import { useTasksContext } from "@/entities/todo/model"
+import type { stylesProps } from "@/shared/types"
 import { Button } from "@/shared/ui/Button"
 import { Field } from "@/shared/ui/Field"
 import { useRef, useState } from "react"
 
-export const AddTaskForm = (props) => {
+export const AddTaskForm = (props: stylesProps) => {
   const { styles } = props
 
-  const [newTaskTitle, setNewTaskTitle] = useState("")
-  const newTaskTitleRef = useRef(null)
+  const [newTaskTitle, setNewTaskTitle] = useState<string>("")
+  const newTaskTitleRef = useRef<HTMLInputElement>(null)
 
   const clearTitle = newTaskTitle.trim()
   const { addTask, setAnimationState } = useTasksContext()
 
-  const onSubmit = (e) => {
+  //типизация submit
+  const onSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (clearTitle.length === 0) {
@@ -32,8 +34,8 @@ export const AddTaskForm = (props) => {
     newTaskTitleRef.current?.focus()
   }
 
-  const onInput = ({ target }) => {
-    setNewTaskTitle(target.value)
+  const onInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setNewTaskTitle(e.currentTarget.value)
   }
 
   return (

@@ -19,7 +19,7 @@ export const Todo = () => {
         <Button
           onClick={() => {
             firstIncompleteTaskRef?.current?.scrollIntoView({
-              behaviour: "smooth",
+              behavior: "smooth",
               block: "center",
             })
           }}

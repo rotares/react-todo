@@ -1,7 +1,8 @@
 import { useTasksContext } from "@/entities/todo/model"
+import type { stylesProps } from "@/shared/types"
 import { Button } from "@/shared/ui/Button"
 
-export const TodoInfo = (props) => {
+export const TodoInfo = (props: stylesProps) => {
   const { styles } = props
 
   const { tasks, deleteAllTasks } = useTasksContext()

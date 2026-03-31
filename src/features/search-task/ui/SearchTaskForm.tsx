@@ -1,13 +1,13 @@
 import { useSearchContext } from "@/entities/todo/model"
+import type { stylesProps } from "@/shared/types"
 import { Field } from "@/shared/ui/Field"
 
-export const SearchTaskForm = (props) => {
+export const SearchTaskForm = (props: stylesProps) => {
   const { styles } = props
-
   const { searchQuery, setSearchQuery } = useSearchContext()
 
-  const onInput = ({ target }) => {
-    setSearchQuery(target.value)
+  const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.currentTarget.value)
   }
 
   return (

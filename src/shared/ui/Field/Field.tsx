@@ -6,7 +6,7 @@ interface FieldProps extends ComponentProps<"input"> {
   className?: string
   label: string
   id: string
-  onInput?: (arg: React.InputEvent) => void
+  onInput?: (arg: React.SyntheticEvent<HTMLInputElement>) => void
 }
 
 export const Field = (props: FieldProps) => {
