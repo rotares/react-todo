@@ -1,11 +1,8 @@
+import { stylesProps } from "@/shared/types"
 import { useFilteredTasks, useTasksContext } from "../../model"
 import { TodoItem } from "../TodoItem"
 
-interface TodoList {
-  styles: Record<string, string>
-}
-
-export const TodoList = (props: TodoList) => {
+export const TodoList = (props: stylesProps) => {
   const { styles } = props
 
   const { tasks } = useTasksContext()

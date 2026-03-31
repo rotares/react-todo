@@ -36,3 +36,7 @@ export interface TasksContextValue {
   firstIncompleteTaskId: Task["id"] | undefined
   firstIncompleteTaskRef: React.RefObject<HTMLLIElement | null>
 }
+
+export interface stylesProps {
+  styles: Record<string, string>
+}
