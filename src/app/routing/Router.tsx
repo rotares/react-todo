@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const split = (path, route) => {
+const split = (path: string, route: string) => {
   const splittedPath = path.split("/")
   const splittedRoute = route.split("/")
 
@@ -8,7 +8,7 @@ const split = (path, route) => {
     return null
   }
 
-  const params = {}
+  const params: RouteParams = {}
 
   splittedRoute.forEach((part, index) => {
     if (part.startsWith(":")) {
@@ -22,7 +22,14 @@ const split = (path, route) => {
   return params
 }
 
-export const Router = (props) => {
+type RouteParams = Record<string, string>
+type RouteComponent = React.FC<{ params?: RouteParams }>
+
+interface propsRouter {
+  routes: Record<string, RouteComponent>
+}
+
+export const Router = (props: propsRouter) => {
   const { routes } = props
 
   const [currentPath, setCurrentPath] = useState(location.pathname)
