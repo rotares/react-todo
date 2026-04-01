@@ -1,12 +1,13 @@
 import { useSearchContext } from "@/entities/todo/model"
 import type { stylesProps } from "@/shared/types"
 import { Field } from "@/shared/ui/Field"
+import { ChangeEvent } from "react"
 
 export const SearchTaskForm = (props: stylesProps) => {
   const { styles } = props
   const { searchQuery, setSearchQuery } = useSearchContext()
 
-  const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.currentTarget.value)
   }
 
@@ -18,7 +19,7 @@ export const SearchTaskForm = (props: stylesProps) => {
         label="Search Task"
         type="search"
         value={searchQuery}
-        onInput={onInput}
+        onChange={onChange}
       />
     </form>
   )

@@ -2,7 +2,7 @@ import { useTasksContext } from "@/entities/todo/model"
 import type { stylesProps } from "@/shared/types"
 import { Button } from "@/shared/ui/Button"
 import { Field } from "@/shared/ui/Field"
-import { useRef, useState } from "react"
+import { ChangeEvent, useRef, useState } from "react"
 
 export const AddTaskForm = (props: stylesProps) => {
   const { styles } = props
@@ -34,7 +34,7 @@ export const AddTaskForm = (props: stylesProps) => {
     newTaskTitleRef.current?.focus()
   }
 
-  const onInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setNewTaskTitle(e.currentTarget.value)
   }
 
@@ -42,7 +42,7 @@ export const AddTaskForm = (props: stylesProps) => {
     <form onSubmit={onSubmit} className={styles.form}>
       <Field
         ref={newTaskTitleRef}
-        onInput={onInput}
+        onChange={onChange}
         value={newTaskTitle}
         className={styles.field}
         label="New Task"
