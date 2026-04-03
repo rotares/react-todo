@@ -9,12 +9,6 @@
   border: 1px solid var(--color-dark-2);
   border-radius: var(--border-radius);
 
-  &:disabled {
-    background-color: var(--color-gray-3);
-    border-color: var(--color-gray-3);
-    cursor: not-allowed;
-  }
-
   &:not(:disabled) {
     &:hover {
       color: var(--color-dark-2);
@@ -24,5 +18,10 @@
     &:active {
       scale: 1.05;
     }
+  }
+
+  &:disabled {
+    background-color: var(--color-gray-2);
+    border-color: var(--color-gray-2);
   }
 }

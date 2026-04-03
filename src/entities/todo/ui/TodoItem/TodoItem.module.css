@@ -1,11 +1,18 @@
-@keyframes appear {
+@keyframes appearing {
   from {
     opacity: 0;
     translate: 0 -75%;
   }
 }
 
-.item {
+@keyframes dis {
+  to {
+    opacity: 0;
+    translate: 0 -75%;
+  }
+}
+
+.todoItem {
   display: flex;
   align-items: center;
   column-gap: 12px;
@@ -18,12 +25,10 @@
   }
 
   &.isDisappearing {
-    opacity: 0;
-    translate: 0 -75%;
-    transition-duration: calc(var(--transition-duration) * 2);
+    animation: dis calc(var(--transition-duration) * 2) forwards !important;
     pointer-events: none;
 
-    & ~ .item {
+    & ~ .todoItem {
       translate: 0 calc((100% + var(--todoListRowGap)) * -1);
       transition-delay: var(--transition-duration);
       transition-duration: var(--transition-duration);
@@ -32,8 +37,7 @@
   }
 
   &.isAppearing {
-    animation: appear calc(var(--transition-duration) * 2);
-    pointer-events: none;
+    animation: appearing calc(var(--transition-duration) * 2);
   }
 }
 
@@ -51,9 +55,9 @@
     background-color: var(--color-dark-2);
     border-color: var(--color-dark-2);
 
-    & + .label {
+    & ~ .link {
       color: var(--color-gray-4);
-      text-decoration: line-through;
+      text-decoration: line-through !important;
     }
   }
 
@@ -79,6 +83,11 @@
 .label {
   width: 100%;
   pointer-events: none;
+}
+
+.link {
+  color: var(--color-dark-1);
+  text-decoration: none;
 }
 
 .deleteButton {
