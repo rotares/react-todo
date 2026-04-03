@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/shared/constants"
 import type { Task } from "@/shared/types"
 import { Button } from "@/shared/ui/Button"
 import { Link } from "react-router"
@@ -50,7 +49,7 @@ export const TodoItem = (props: TodoItemProps) => {
         {task.title}
       </label>
 
-      <Link to={`${BASE_URL}tasks/${task.id}`}>{task.title}</Link>
+      <Link to={`/tasks/${task.id}`}>{task.title}</Link>
 
       <Button
         className={styles.deleteButton}
